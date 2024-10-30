@@ -10,25 +10,34 @@ class CountryAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeModeState = ref.watch(themesProvider);
 
-    void themeSwitch(bool value) {
-      // Check if the current theme mode is dark
-      if (themeModeState == ThemeMode.dark) {
-        ref.read(themesProvider.notifier).changeTheme(value);
-      }
+    void themeSwitch() {
+      // Toggle theme based on the current state
+      final isDarkMode = themeModeState == ThemeMode.dark;
+      ref.read(themesProvider.notifier).changeTheme(!isDarkMode);
     }
 
     return AppBar(
-      title: const Header2(text: "Where in the world?"),
+      backgroundColor: Theme.of(context).cardColor,
+      title: const Padding(
+        padding: EdgeInsets.only(left: 30),
+        child: Header2(text: "Where in the world?"),
+      ),
       actions: [
-        TextButton.icon(
-          onPressed: () => themeSwitch,
-          label: Header3(
-              text: themeModeState == ThemeMode.dark
-                  ? "Dark Mode"
-                  : "Light Mode"),
-          icon: Icon(themeModeState == ThemeMode.dark
-              ? Icons.dark_mode_outlined
-              : Icons.light_mode_outlined),
+        Padding(
+          padding: const EdgeInsets.only(right: 30),
+          child: TextButton.icon(
+            onPressed: themeSwitch,
+            label: Header3(
+              text:
+                  themeModeState == ThemeMode.dark ? "Light Mode" : "Dark Mode",
+            ),
+            icon: Icon(
+              themeModeState == ThemeMode.dark
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
         )
       ],
     );

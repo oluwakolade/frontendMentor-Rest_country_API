@@ -7,84 +7,99 @@ class Country {
   final String subregion;
   final String topLevelDomain;
   final List<String> borders;
-  final Flags flags;
-  final List<Currency> currencies;
+  final String flags;
+  final String currencies;
   final List<Language> languages;
 
-  const Country(
-      {required this.name,
-      required this.capital,
-      required this.region,
-      required this.population,
-      required this.nativeName,
-      required this.borders,
-      required this.currencies,
-      required this.languages,
-      required this.subregion,
-      required this.topLevelDomain,
-      required this.flags});
+  const Country({
+    required this.name,
+    required this.capital,
+    required this.region,
+    required this.population,
+    required this.nativeName,
+    required this.borders,
+    required this.currencies,
+    required this.languages,
+    required this.subregion,
+    required this.topLevelDomain,
+    required this.flags,
+  });
 
   factory Country.fromJson(Map<String, dynamic> json) {
+    // Extracting the `nativeName` value
+    String nativeName = 'Unknown';
+    if (json['name']['nativeName'] != null) {
+      var nativeNameData = json['name']['nativeName'];
+      if (nativeNameData is Map && nativeNameData.isNotEmpty) {
+        nativeName = nativeNameData.entries.first.value['common'] ?? 'Unknown';
+      }
+    }
+//flag
+    String flag = '';
+    if (json['flags'] is Map<String, dynamic> &&
+        json['flags']['png'] is String) {
+      flag = json['flags']['png'] as String;
+    } else {
+      flag = 'Unknown';
+    }
+
+    //language
+    List<Language> languageList = (json['languages'] != null)
+        ? (json['languages'] as Map<String, dynamic>)
+            .entries
+            .map((entry) =>
+                Language(code: entry.key, name: entry.value as String))
+            .toList()
+        : [];
+
+
+        //currency
+          // Extracting the first currency code
+    String currency = 'Unknown';
+    if (json['currencies'] != null && json['currencies'] is Map<String, dynamic>) {
+      var currenciesMap = json['currencies'] as Map<String, dynamic>;
+      // Get the first currency key (code)
+      currency = currenciesMap.keys.first; // This will get the first currency key, e.g., "HUF"
+    }
+
+
     return Country(
-      name: json['name'],
-      capital: json['capital'],
-      region: (json['region'] as num).toString(),
-      population: json['population'],
-      nativeName: json['nativeName'],
-      subregion: json['subregion'],
-      topLevelDomain: json['topLevelDomian'],
-      borders: List<String>.from(json['borders']),
-      flags: Flags.fromJson(json['flags']),
-      currencies: (json['currencies'] as List)
-          .map((currency) => Currency.fromJson(currency))
-          .toList(),
-      languages: (json['languages'] as List)
-          .map((language) => Language.fromJson(language))
-          .toList(),
-    );
+        name: json['name']['common'] as String,
+        capital: json['capital'] != null && json['capital'].isNotEmpty
+            ? json['capital'][0]
+            : 'Unknown',
+        region: json['region'] as String,
+        population: json['population'] as int,
+        nativeName: nativeName,
+        subregion: json['subregion'] ?? 'Unknown',
+        topLevelDomain: (json['tld'] != null && json['tld'].isNotEmpty)
+            ? json['tld'][0]
+            : 'Unknown',
+        borders:
+            (json['borders'] != null) ? List<String>.from(json['borders']) : [],
+        flags: flag,
+        currencies: currency,
+  
+
+        languages: languageList);
   }
 }
 
-class Flags {
-  final String png;
+// class Currency {
+//   final String name;
 
-  Flags({required this.png});
+//   Currency({required this.name });
 
-  factory Flags.fromJson(Map<String, dynamic> json) {
-    return Flags(png: json['png']);
-  }
-}
-
-class Currency {
-  final String code;
-  final String name;
-  final String symbol;
-
-  Currency({
-    required this.code,
-    required this.name,
-    required this.symbol,
-  });
-
-  factory Currency.fromJson(Map<String, dynamic> json) {
-    return Currency(
-      code: json['code'],
-      name: json['name'],
-      symbol: json['symbol'],
-    );
-  }
-}
+//   factory Currency.fromJson(Map<String, dynamic> json) {
+//     return Currency(
+//       name: json['name'] as String,
+//     );
+//   }
+// }
 
 class Language {
+  final String code;
   final String name;
 
-  Language({
-    required this.name,
-  });
-
-  factory Language.fromJson(Map<String, dynamic> json) {
-    return Language(
-      name: json['name'],
-    );
-  }
+  Language({required this.code, required this.name});
 }

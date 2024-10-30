@@ -51,7 +51,7 @@ class Header4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: GoogleFonts.nunitoSans(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).highlightColor,
             fontSize: 14,
             fontWeight: FontWeight.w300));
   }
@@ -70,7 +70,7 @@ class CardText extends StatelessWidget {
         Text(
           '$label:',
           style: GoogleFonts.nunitoSans(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).highlightColor,
               fontSize: 14,
               fontWeight: FontWeight.w600),
         ),
@@ -80,7 +80,7 @@ class CardText extends StatelessWidget {
         Text(
           text,
           style: GoogleFonts.nunitoSans(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).highlightColor,
               fontSize: 14,
               fontWeight: FontWeight.w300),
         ),
