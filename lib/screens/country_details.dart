@@ -80,6 +80,9 @@ class CountryDesktopDetails extends StatelessWidget {
                             Row(
                               children: [
                                 const Header3(text: "Border Countries"),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                                 Row(children: [
                                   if (country.borders.isEmpty)
                                     const Header4(text: "No Borders")

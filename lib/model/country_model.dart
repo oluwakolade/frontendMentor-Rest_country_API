@@ -52,16 +52,16 @@ class Country {
             .toList()
         : [];
 
-
-        //currency
-          // Extracting the first currency code
+    //currency
+    // Extracting the first currency code
     String currency = 'Unknown';
-    if (json['currencies'] != null && json['currencies'] is Map<String, dynamic>) {
+    if (json['currencies'] != null &&
+        json['currencies'] is Map<String, dynamic>) {
       var currenciesMap = json['currencies'] as Map<String, dynamic>;
       // Get the first currency key (code)
-      currency = currenciesMap.keys.first; // This will get the first currency key, e.g., "HUF"
+      currency = currenciesMap
+          .keys.first; // This will get the first currency key, e.g., "HUF"
     }
-
 
     return Country(
         name: json['name']['common'] as String,
@@ -79,8 +79,6 @@ class Country {
             (json['borders'] != null) ? List<String>.from(json['borders']) : [],
         flags: flag,
         currencies: currency,
-  
-
         languages: languageList);
   }
 }

@@ -30,6 +30,7 @@ class CountryCard extends StatelessWidget {
           child: LayoutBuilder(builder: (context, constraints) {
             final imageHeight = constraints.maxHeight * 0.5;
             return Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 //image
                 ClipRRect(
@@ -54,6 +55,7 @@ class CountryCard extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Header2(text: countryName),

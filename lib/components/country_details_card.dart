@@ -42,7 +42,6 @@ class CountryDetailsCard extends StatelessWidget {
 
           //country details
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //coulmn 1
@@ -70,6 +69,8 @@ class CountryDetailsCard extends StatelessWidget {
                   CardText(label: "Capital", text: capital)
                 ],
               ),
+
+              const SizedBox(width: 30),
 
               //column 2
               Column(

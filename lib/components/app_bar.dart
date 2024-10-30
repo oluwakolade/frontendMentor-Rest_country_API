@@ -17,6 +17,7 @@ class CountryAppBar extends ConsumerWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Theme.of(context).cardColor,
       title: const Padding(
         padding: EdgeInsets.only(left: 30),

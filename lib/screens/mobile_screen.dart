@@ -12,16 +12,17 @@ class CountryMobileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CountryAppBar(),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CountrySearchBar(width: double.infinity),
-            CountryFilter(),
-            SizedBox(
+            CountrySearchBar(width: MediaQuery.of(context).size.width),
+            const CountryFilter(),
+            const SizedBox(
               height: 20,
             ),
-            CountryGrid(
+            const CountryGrid(
               crossAxisCount: 1,
             )
           ],
