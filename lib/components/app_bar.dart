@@ -20,26 +20,26 @@ class CountryAppBar extends ConsumerWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       backgroundColor: Theme.of(context).cardColor,
       title: const Padding(
-        padding: EdgeInsets.only(left: 30),
+        padding: EdgeInsets.symmetric(horizontal: 5),
         child: Header2(text: "Where in the world?"),
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 30),
-          child: TextButton.icon(
-            onPressed: themeSwitch,
-            label: Header3(
-              text:
-                  themeModeState == ThemeMode.dark ? "Light Mode" : "Dark Mode",
-            ),
-            icon: Icon(
-              themeModeState == ThemeMode.dark
-                  ? Icons.light_mode_outlined
-                  : Icons.dark_mode_outlined,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-        )
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: TextButton.icon(
+              onPressed: themeSwitch,
+              label: Header3(
+                text: themeModeState == ThemeMode.dark
+                    ? "Light Mode"
+                    : "Dark Mode",
+              ),
+              icon: Icon(
+                themeModeState == ThemeMode.dark
+                    ? Icons.light_mode_outlined
+                    : Icons.dark_mode_outlined,
+                color: Theme.of(context).primaryColor,
+              ),
+            ))
       ],
     );
   }
